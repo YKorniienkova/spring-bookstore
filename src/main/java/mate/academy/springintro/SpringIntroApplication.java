@@ -19,7 +19,7 @@ public class SpringIntroApplication {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(){
+    public CommandLineRunner commandLineRunner() {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
