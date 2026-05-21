@@ -23,14 +23,14 @@ public class SpringIntroApplication {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                Book book1 = new Book();
-                book1.setAuthor("Taras");
-                book1.setTitle("Book");
-                book1.setIsbn("978-3-16-148410-0");
-                book1.setPrice(BigDecimal.valueOf(200));
-                book1.setDescription("It's a book");
-                book1.setCoverImage("image");
-                bookService.save(book1);
+                Book book = new Book();
+                book.setAuthor("Taras");
+                book.setTitle("Book");
+                book.setIsbn("978-3-16-148410-0");
+                book.setPrice(BigDecimal.valueOf(200));
+                book.setDescription("It's a book");
+                book.setCoverImage("image");
+                bookService.save(book);
                 System.out.println(bookService.findAll());
             }
         };

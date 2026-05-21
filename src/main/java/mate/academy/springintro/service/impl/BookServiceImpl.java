@@ -1,20 +1,16 @@
 package mate.academy.springintro.service.impl;
 
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springintro.model.Book;
 import mate.academy.springintro.repository.BookRepository;
 import mate.academy.springintro.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
-
-    @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @Override
     public Book save(Book book) {
