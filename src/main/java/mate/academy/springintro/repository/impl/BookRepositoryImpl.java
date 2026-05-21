@@ -29,7 +29,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't save book" +book, e);
+            throw new DataProcessingException("Can't save book" + book, e);
         } finally {
             if (session != null) {
                 session.close();
