@@ -31,7 +31,7 @@ public class SpringIntroApplication {
                 book.setDescription("It's a book");
                 book.setCoverImage("image");
                 bookService.save(book);
-                System.out.println(bookService.findAll());
+                bookService.findAll();
             }
         };
     }
