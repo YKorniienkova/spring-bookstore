@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TitleSpecificationProvider implements SpecificationProvider<Book> {
+    private static final String TITLE = "title";
+
     @Override
     public Specification<Book> getSpecification(String params) {
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.equal(root.get("title"), params);
+                criteriaBuilder.equal(root.get(TITLE), params);
     }
 }
