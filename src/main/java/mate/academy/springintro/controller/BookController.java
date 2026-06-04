@@ -1,5 +1,7 @@
 package mate.academy.springintro.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springintro.dto.BookDto;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Book management", description = "Endpoints for managing books")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/books")
@@ -28,33 +31,40 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Save a new Book", description = "Save a new Book")
     public BookDto save(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
     @GetMapping
+    @Operation(summary = "Get all books", description = "Get a list of all available books")
     public Page<BookDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a book by id", description = "Get a book by id")
     public BookDto findById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a book by id", description = "Delete a book by id")
     public void delete(@PathVariable Long id) {
         bookService.deleteById(id);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a book by id", description = "Update a book by id")
     public BookDto updateById(@PathVariable Long id,
                               @RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.update(id, requestDto);
     }
 
     @GetMapping("/search")
+    @Operation(summary = "Search books by parameters",
+            description = "Search books by title, author")
     public Page<BookDto> searchBooks(BookSearchParametrDto searchParametrs, Pageable pageable) {
         return bookService.search(searchParametrs, pageable);
     }
