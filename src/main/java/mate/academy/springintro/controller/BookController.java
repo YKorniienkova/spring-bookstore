@@ -1,7 +1,6 @@
 package mate.academy.springintro.controller;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springintro.dto.BookDto;
 import mate.academy.springintro.dto.BookSearchParametrDto;

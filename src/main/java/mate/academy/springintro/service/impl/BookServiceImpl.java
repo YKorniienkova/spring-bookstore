@@ -1,6 +1,5 @@
 package mate.academy.springintro.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springintro.dto.BookDto;
 import mate.academy.springintro.dto.BookSearchParametrDto;
