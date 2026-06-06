@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.springintro.dto.BookDto;
-import mate.academy.springintro.dto.BookSearchParametrDto;
-import mate.academy.springintro.dto.CreateBookRequestDto;
+import mate.academy.springintro.dto.book.BookDto;
+import mate.academy.springintro.dto.book.BookSearchParameterDto;
+import mate.academy.springintro.dto.book.CreateBookRequestDto;
 import mate.academy.springintro.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,7 +65,7 @@ public class BookController {
     @GetMapping("/search")
     @Operation(summary = "Search books by parameters",
             description = "Search books by title, author")
-    public Page<BookDto> searchBooks(BookSearchParametrDto searchParametrs, Pageable pageable) {
+    public Page<BookDto> searchBooks(BookSearchParameterDto searchParametrs, Pageable pageable) {
         return bookService.search(searchParametrs, pageable);
     }
 }

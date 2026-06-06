@@ -1,7 +1,7 @@
 package mate.academy.springintro.repository.specification;
 
 import lombok.RequiredArgsConstructor;
-import mate.academy.springintro.dto.BookSearchParametrDto;
+import mate.academy.springintro.dto.book.BookSearchParameterDto;
 import mate.academy.springintro.model.Book;
 import mate.academy.springintro.repository.specification.book.AuthorSpecificationProvider;
 import mate.academy.springintro.repository.specification.book.TitleSpecificationProvider;
@@ -16,7 +16,7 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     private final TitleSpecificationProvider titleSpecificationProvider;
 
     @Override
-    public Specification<Book> build(BookSearchParametrDto searchParametrs) {
+    public Specification<Book> build(BookSearchParameterDto searchParametrs) {
         Specification<Book> specification = Specification.where((Specification<Book>) null);
         if (searchParametrs.title() != null
                 && searchParametrs.title().length() > 0) {
