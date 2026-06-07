@@ -2,9 +2,9 @@ package mate.academy.springintro.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
 @Setter
 @Getter
@@ -13,7 +13,7 @@ public class UserRegistrationRequestDto {
     @Email
     private String email;
     @NotBlank
-    @Length(min = 4)
+    @Size(min = 4)
     private String password;
     @NotBlank
     private String firstName;
