@@ -1,9 +1,9 @@
 package mate.academy.springintro.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import mate.academy.springintro.dto.BookDto;
-import mate.academy.springintro.dto.BookSearchParametrDto;
-import mate.academy.springintro.dto.CreateBookRequestDto;
+import mate.academy.springintro.dto.book.BookDto;
+import mate.academy.springintro.dto.book.BookSearchParameterDto;
+import mate.academy.springintro.dto.book.CreateBookRequestDto;
 import mate.academy.springintro.exception.EntityNotFoundException;
 import mate.academy.springintro.mapper.BookMapper;
 import mate.academy.springintro.model.Book;
@@ -58,7 +58,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<BookDto> search(BookSearchParametrDto searchParameters, Pageable pageable) {
+    public Page<BookDto> search(BookSearchParameterDto searchParameters, Pageable pageable) {
         Specification<Book> specification = specificationBuilder.build(searchParameters);
 
         return bookRepository.findAll(specification, pageable)
