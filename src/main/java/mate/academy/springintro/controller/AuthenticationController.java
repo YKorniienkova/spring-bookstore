@@ -2,6 +2,8 @@ package mate.academy.springintro.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import mate.academy.springintro.dto.user.UserLoginRequestDto;
+import mate.academy.springintro.dto.user.UserLoginResponseDto;
 import mate.academy.springintro.dto.user.UserRegistrationRequestDto;
 import mate.academy.springintro.dto.user.UserResponseDto;
 import mate.academy.springintro.service.AuthenticationService;
@@ -20,5 +22,11 @@ public class AuthenticationController {
     public UserResponseDto register(@RequestBody @Valid
                                     UserRegistrationRequestDto requestDto) {
         return authenticationService.register(requestDto);
+    }
+
+    @PostMapping("/login")
+    public UserLoginResponseDto login(@RequestBody @Valid
+                                          UserLoginRequestDto requestDto) {
+        return authenticationService.authenticate(requestDto);
     }
 }

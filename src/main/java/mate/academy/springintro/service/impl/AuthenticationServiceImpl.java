@@ -1,7 +1,10 @@
 package mate.academy.springintro.service.impl;
 
+import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import mate.academy.springintro.dto.user.UserLoginRequestDto;
+import mate.academy.springintro.dto.user.UserLoginResponseDto;
 import mate.academy.springintro.dto.user.UserRegistrationRequestDto;
 import mate.academy.springintro.dto.user.UserResponseDto;
 import mate.academy.springintro.exception.EntityNotFoundException;
@@ -11,7 +14,10 @@ import mate.academy.springintro.model.Role;
 import mate.academy.springintro.model.User;
 import mate.academy.springintro.repository.RoleRepository;
 import mate.academy.springintro.repository.UserRepository;
+import mate.academy.springintro.security.JwtUtil;
 import mate.academy.springintro.service.AuthenticationService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +30,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
@@ -40,5 +48,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setRoles(Set.of(userRole));
         User savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
+    }
+
+    @Override
+    public UserLoginResponseDto authenticate(UserLoginRequestDto requestDto) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(requestDto.getEmail(),
+                        requestDto.getPassword())
+        );
+        String token = jwtUtil.generateToken(requestDto.getEmail());
+        return new UserLoginResponseDto(token);
     }
 }
