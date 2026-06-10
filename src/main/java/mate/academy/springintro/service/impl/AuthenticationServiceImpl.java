@@ -14,8 +14,10 @@ import mate.academy.springintro.repository.UserRepository;
 import mate.academy.springintro.service.AuthenticationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
@@ -31,7 +33,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                     + requestDto.getEmail() + " already exists");
         }
         Role userRole = roleRepository.findByName(Role.RoleName.ROLE_USER)
-                .orElseThrow(() -> new EntityNotFoundException("Role USER not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Role "
+                        + Role.RoleName.ROLE_USER + " not found"));
         User user = userMapper.toModel(requestDto);
         user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         user.setRoles(Set.of(userRole));
