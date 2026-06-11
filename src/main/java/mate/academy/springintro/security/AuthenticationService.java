@@ -1,4 +1,4 @@
-package mate.academy.springintro.service;
+package mate.academy.springintro.security;
 
 import mate.academy.springintro.dto.user.UserLoginRequestDto;
 import mate.academy.springintro.dto.user.UserLoginResponseDto;

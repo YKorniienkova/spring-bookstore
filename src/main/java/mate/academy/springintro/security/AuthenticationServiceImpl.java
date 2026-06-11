@@ -1,6 +1,5 @@
-package mate.academy.springintro.service.impl;
+package mate.academy.springintro.security;
 
-import java.util.Optional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springintro.dto.user.UserLoginRequestDto;
@@ -14,8 +13,6 @@ import mate.academy.springintro.model.Role;
 import mate.academy.springintro.model.User;
 import mate.academy.springintro.repository.RoleRepository;
 import mate.academy.springintro.repository.UserRepository;
-import mate.academy.springintro.security.JwtUtil;
-import mate.academy.springintro.service.AuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

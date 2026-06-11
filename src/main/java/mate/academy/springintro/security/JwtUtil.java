@@ -5,14 +5,12 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
+import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
@@ -36,7 +34,7 @@ public class JwtUtil {
 
     public boolean isValidToken(String token) {
         try {
-            Jws<Claims>  claimsJws = Jwts.parser()
+            Jws<Claims> claimsJws = Jwts.parser()
                     .verifyWith(secret)
                     .build()
                     .parseSignedClaims(token);
@@ -45,6 +43,7 @@ public class JwtUtil {
             return false;
         }
     }
+
     public String getUsername(String token) {
         return getClaimsFromToken(token, Claims::getSubject);
     }
