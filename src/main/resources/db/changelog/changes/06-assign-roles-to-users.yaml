@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: assign-user-role-to-existing-users
+      author: YKorniienkova
+      changes:
+        - sql:
+            sql: >
+              INSERT INTO users_roles (user_id, role_id)
+              SELECT u.id, r.id
+              FROM users u
+              JOIN roles r ON r.name = 'ROLE_USER'
+              WHERE NOT EXISTS (
+                  SELECT 1
+                  FROM users_roles ur
+                  WHERE ur.user_id = u.id
+              );
