@@ -1,8 +1,8 @@
 package mate.academy.springintro.service;
 
-import mate.academy.springintro.dto.user.UserRegistrationRequestDto;
-import mate.academy.springintro.dto.user.UserResponseDto;
+import mate.academy.springintro.dto.user.UserLoginRequestDto;
+import mate.academy.springintro.dto.user.UserLoginResponseDto;
 
 public interface AuthenticationService {
-    UserResponseDto register(UserRegistrationRequestDto requestDto);
+    UserLoginResponseDto authenticate(UserLoginRequestDto requestDto);
 }
