@@ -1,13 +1,12 @@
 package mate.academy.springintro.dto.book;
 
 import java.math.BigDecimal;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class BookDto {
+@Setter
+public class BookDtoWithoutCategoryIds {
     private Long id;
     private String title;
     private String author;
@@ -15,6 +14,4 @@ public class BookDto {
     private BigDecimal price;
     private String description;
     private String coverImage;
-    private Set<Long> categoryIds;
-
 }
