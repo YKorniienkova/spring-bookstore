@@ -1,4 +1,4 @@
-package mate.academy.springintro.dto.cartItem;
+package mate.academy.springintro.dto.cartitem;
 
 import lombok.Getter;
 import lombok.Setter;

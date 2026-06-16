@@ -1,10 +1,8 @@
-package mate.academy.springintro.dto.cartItem;
+package mate.academy.springintro.dto.cartitem;
 
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
-import mate.academy.springintro.model.Book;
-import mate.academy.springintro.model.ShoppingCart;
 
 @Getter
 @Setter

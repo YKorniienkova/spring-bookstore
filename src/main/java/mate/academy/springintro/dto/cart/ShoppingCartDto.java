@@ -1,11 +1,9 @@
 package mate.academy.springintro.dto.cart;
 
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import mate.academy.springintro.model.CartItem;
-import mate.academy.springintro.model.User;
-
-import java.util.Set;
 
 @Getter
 @Setter
