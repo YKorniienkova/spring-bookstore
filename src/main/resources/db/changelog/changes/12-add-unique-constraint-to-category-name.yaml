@@ -1,9 +1,0 @@
-databaseChangeLog:
-  - changeSet:
-      id: add-unique-constraint-to-category-name
-      author: YKorniienkova
-      changes:
-        - addUniqueConstraint:
-            tableName: categories
-            columnNames: name
-            constraintName: uk_category_name
