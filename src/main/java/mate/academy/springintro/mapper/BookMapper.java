@@ -32,7 +32,9 @@ public interface BookMapper {
     }
 
     @Named("bookFromId")
-    default Book bookFromId() {
-        return null;
+    default Book bookFromId(Long id) {
+        Book book = new Book();
+        book.setId(id);
+        return book;
     }
 }

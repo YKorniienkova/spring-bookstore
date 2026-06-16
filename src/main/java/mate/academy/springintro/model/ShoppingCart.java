@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @SQLDelete(sql = "UPDATE shoppingCarts SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
-@Table(name = "shoppingCarts")
+@Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
