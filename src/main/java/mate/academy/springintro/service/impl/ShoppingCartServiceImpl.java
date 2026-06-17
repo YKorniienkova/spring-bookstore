@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ShoppingShoppingCartServiceImpl implements ShoppingCartService {
+public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final CartItemMapper cartItemMapper;
     private final ShoppingCartMapper shoppingCartMapper;
     private final ShoppingCartRepository shoppingCartRepository;
