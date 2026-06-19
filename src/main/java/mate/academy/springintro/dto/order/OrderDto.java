@@ -1,13 +1,11 @@
 package mate.academy.springintro.dto.order;
 
-import lombok.Getter;
-import lombok.Setter;
-import mate.academy.springintro.model.Order;
-import mate.academy.springintro.model.User;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import mate.academy.springintro.model.Order;
 
 @Getter
 @Setter
