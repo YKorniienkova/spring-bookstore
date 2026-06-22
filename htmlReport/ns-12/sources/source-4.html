@@ -1,0 +1,98 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CategoryService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">mate.academy.springintro.service</a>
+</div>
+
+<h1>Coverage Summary for Class: CategoryService (mate.academy.springintro.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">CategoryService$MockitoMock$KBMhMyTn</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryService$MockitoMock$KBMhMyTn$auxiliary$fh2V4lu7</td>
+  </tr>
+  <tr>
+    <td class="name">CategoryService$MockitoMock$KBMhMyTn$auxiliary$H77AxBVV</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package mate.academy.springintro.service;
+&nbsp;
+&nbsp;import mate.academy.springintro.dto.book.BookDtoWithoutCategoryIds;
+&nbsp;import mate.academy.springintro.dto.category.CategoryDto;
+&nbsp;import mate.academy.springintro.dto.category.CreateCategoryRequestDto;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;
+&nbsp;public interface CategoryService {
+&nbsp;    Page&lt;CategoryDto&gt; findAll(Pageable pageable);
+&nbsp;
+&nbsp;    CategoryDto getById(Long id);
+&nbsp;
+&nbsp;    CategoryDto save(CreateCategoryRequestDto requestDto);
+&nbsp;
+&nbsp;    CategoryDto update(Long id, CreateCategoryRequestDto requestDto);
+&nbsp;
+&nbsp;    void deleteById(Long id);
+&nbsp;
+&nbsp;    Page&lt;BookDtoWithoutCategoryIds&gt; getBooksByCategoryId(Long id, Pageable pageable);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-06-22 18:52</div>
+</div>
+</body>
+</html>

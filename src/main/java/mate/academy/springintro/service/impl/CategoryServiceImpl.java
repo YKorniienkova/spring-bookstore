@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Page<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id, Pageable pageable) {
-        return bookRepository.findAllByCategoryId(id, pageable)
+        return bookRepository.findAllByCategoriesId(id, pageable)
                 .map(bookMapper::toDtoWithoutCategories);
     }
 }

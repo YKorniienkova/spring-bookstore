@@ -1,0 +1,84 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > OrderMapper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">mate.academy.springintro.mapper</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderMapper (mate.academy.springintro.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">OrderMapper</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package mate.academy.springintro.mapper;
+&nbsp;
+&nbsp;import mate.academy.springintro.config.MapperConfig;
+&nbsp;import mate.academy.springintro.dto.order.CreateOrderRequestDto;
+&nbsp;import mate.academy.springintro.dto.order.OrderDto;
+&nbsp;import mate.academy.springintro.model.Order;
+&nbsp;import org.mapstruct.Mapper;
+&nbsp;import org.mapstruct.Mapping;
+&nbsp;
+&nbsp;@Mapper(config = MapperConfig.class, uses = OrderItemsMapper.class)
+&nbsp;public interface OrderMapper {
+&nbsp;    @Mapping(source = &quot;user.id&quot;, target = &quot;userId&quot;)
+&nbsp;    OrderDto toDto(Order order);
+&nbsp;
+&nbsp;    Order toModel(CreateOrderRequestDto requestDto);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-06-22 18:52</div>
+</div>
+</body>
+</html>

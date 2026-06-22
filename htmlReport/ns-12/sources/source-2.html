@@ -1,0 +1,98 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">mate.academy.springintro.service</a>
+</div>
+
+<h1>Coverage Summary for Class: BookService (mate.academy.springintro.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">BookService$MockitoMock$iWyFunj5</td>
+  </tr>
+  <tr>
+    <td class="name">BookService$MockitoMock$iWyFunj5$auxiliary$DS214WER</td>
+  </tr>
+  <tr>
+    <td class="name">BookService$MockitoMock$iWyFunj5$auxiliary$MnNxwUaP</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package mate.academy.springintro.service;
+&nbsp;
+&nbsp;import mate.academy.springintro.dto.book.BookDto;
+&nbsp;import mate.academy.springintro.dto.book.BookSearchParameterDto;
+&nbsp;import mate.academy.springintro.dto.book.CreateBookRequestDto;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;
+&nbsp;public interface BookService {
+&nbsp;    BookDto save(CreateBookRequestDto requestDto);
+&nbsp;
+&nbsp;    Page&lt;BookDto&gt; findAll(Pageable pageable);
+&nbsp;
+&nbsp;    BookDto findById(Long id);
+&nbsp;
+&nbsp;    void deleteById(Long id);
+&nbsp;
+&nbsp;    BookDto update(Long id, CreateBookRequestDto requestDto);
+&nbsp;
+&nbsp;    Page&lt;BookDto&gt; search(BookSearchParameterDto searchParameters, Pageable pageable);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-06-22 18:52</div>
+</div>
+</body>
+</html>

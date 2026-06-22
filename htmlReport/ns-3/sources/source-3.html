@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CartController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">mate.academy.springintro.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: CartController (mate.academy.springintro.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CartController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package mate.academy.springintro.controller;
+&nbsp;
+&nbsp;import io.swagger.v3.oas.annotations.Operation;
+&nbsp;import io.swagger.v3.oas.annotations.tags.Tag;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import mate.academy.springintro.dto.cart.ShoppingCartDto;
+&nbsp;import mate.academy.springintro.dto.cartitem.AddBookToCartRequestDto;
+&nbsp;import mate.academy.springintro.dto.cartitem.UpdateCartItemRequestDto;
+&nbsp;import mate.academy.springintro.model.User;
+&nbsp;import mate.academy.springintro.service.ShoppingCartService;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.security.access.prepost.PreAuthorize;
+&nbsp;import org.springframework.security.core.annotation.AuthenticationPrincipal;
+&nbsp;import org.springframework.web.bind.annotation.DeleteMapping;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.PutMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;import org.springframework.web.bind.annotation.ResponseStatus;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@Tag(name = &quot;Shopping cart management&quot;,
+&nbsp;        description = &quot;Endpoints for managing user&#39;s shopping cart&quot;)
+&nbsp;@RequestMapping(&quot;/cart&quot;)
+&nbsp;@RequiredArgsConstructor
+&nbsp;public class CartController {
+&nbsp;    private final ShoppingCartService shoppingCartService;
+&nbsp;
+&nbsp;    @GetMapping
+&nbsp;    @PreAuthorize(&quot;hasRole(&#39;USER&#39;)&quot;)
+&nbsp;    @Operation(summary = &quot;Get shopping cart&quot;,
+&nbsp;            description = &quot;Get current user&#39;s shopping cart&quot;)
+&nbsp;    public ShoppingCartDto getShoppingCart(@AuthenticationPrincipal User user) {
+<b class="nc">&nbsp;        return shoppingCartService.getShoppingCart(user);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping
+&nbsp;    @ResponseStatus(HttpStatus.CREATED)
+&nbsp;    @PreAuthorize(&quot;hasRole(&#39;USER&#39;)&quot;)
+&nbsp;    @Operation(summary = &quot;Add book to shopping cart&quot;,
+&nbsp;            description = &quot;Add a book to current user&#39;s shopping cart&quot;)
+&nbsp;    public ShoppingCartDto addBookToCart(
+&nbsp;            @AuthenticationPrincipal User user,
+&nbsp;            @RequestBody @Valid AddBookToCartRequestDto requestDto
+&nbsp;    ) {
+<b class="nc">&nbsp;        return shoppingCartService.addBookToCart(user, requestDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/items/{cartItemId}&quot;)
+&nbsp;    @PreAuthorize(&quot;hasRole(&#39;USER&#39;)&quot;)
+&nbsp;    @Operation(summary = &quot;Update cart item quantity&quot;,
+&nbsp;            description = &quot;Update quantity of a book in current user&#39;s shopping cart&quot;)
+&nbsp;    public ShoppingCartDto updateQuantityOfBook(
+&nbsp;            @AuthenticationPrincipal User user,
+&nbsp;            @PathVariable Long cartItemId,
+&nbsp;            @RequestBody @Valid UpdateCartItemRequestDto requestDto
+&nbsp;    ) {
+<b class="nc">&nbsp;        return shoppingCartService.updateCartItem(user, cartItemId, requestDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;/items/{cartItemId}&quot;)
+&nbsp;    @ResponseStatus(HttpStatus.NO_CONTENT)
+&nbsp;    @PreAuthorize(&quot;hasRole(&#39;USER&#39;)&quot;)
+&nbsp;    @Operation(summary = &quot;Delete cart item&quot;,
+&nbsp;            description = &quot;Remove a book from current user&#39;s shopping cart&quot;)
+&nbsp;    public void deleteBookFromCart(
+&nbsp;            @AuthenticationPrincipal User user,
+&nbsp;            @PathVariable Long cartItemId
+&nbsp;    ) {
+<b class="nc">&nbsp;        shoppingCartService.deleteCartItem(user, cartItemId);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-06-22 18:52</div>
+</div>
+</body>
+</html>
