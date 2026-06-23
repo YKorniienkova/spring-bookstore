@@ -1,5 +1,10 @@
 package mate.academy.springintro.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import mate.academy.springintro.dto.book.BookDto;
 import mate.academy.springintro.dto.book.CreateBookRequestDto;
 import mate.academy.springintro.exception.EntityNotFoundException;
@@ -9,22 +14,15 @@ import mate.academy.springintro.model.Category;
 import mate.academy.springintro.repository.BookRepository;
 import mate.academy.springintro.repository.CategoryRepository;
 import mate.academy.springintro.service.impl.BookServiceImpl;
+import mate.academy.springintro.util.TestUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
@@ -44,19 +42,18 @@ public class BookServiceTest {
     @DisplayName("Find book by valid id")
     public void findById_WithValidBookId_ReturnsBookDto() {
         Long bookId = 1L;
-        Book book = new Book();
+        Book book = TestUtil.createBook();
         book.setId(bookId);
 
-        BookDto bookDto = new BookDto();
-        bookDto.setId(bookId);
+        BookDto expected = TestUtil.createBookDto();
 
         when(bookRepository.findById(bookId))
                 .thenReturn(Optional.of(book));
         when(bookMapper.toDto(book))
-                .thenReturn(bookDto);
+                .thenReturn(expected);
         BookDto actual = bookService.findById(bookId);
 
-        assertEquals(bookId, actual.getId());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -90,11 +87,11 @@ public class BookServiceTest {
     @Test
     @DisplayName("Save book with valid Dto")
     void save_ValidRequestDto_ReturnsBookDto() {
-        CreateBookRequestDto requestDto = createBookRequestDto();
-        Book book = createBook();
-        Book savedBook = createBook();
+        CreateBookRequestDto requestDto = TestUtil.createBookRequestDto();
+        Book book = TestUtil.createBook();
+        Book savedBook = TestUtil.createBook();
         savedBook.setId(1L);
-        BookDto expected = createBookDto();
+        BookDto expected = TestUtil.createBookDto();
 
         Category category = new Category();
         category.setId(1L);
@@ -108,23 +105,19 @@ public class BookServiceTest {
 
         BookDto actual = bookService.save(requestDto);
 
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getTitle(), actual.getTitle());
-        assertEquals(expected.getCategoryIds(), actual.getCategoryIds());
+        assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("Update existing book")
     void update_ValidBookId_ReturnsBookDto() {
         Long bookId = 1L;
-        CreateBookRequestDto requestDto = createBookRequestDto();
-        Book book = createBook();
+        CreateBookRequestDto requestDto = TestUtil.createBookRequestDto();
+        Book book = TestUtil.createBook();
         book.setId(bookId);
-        BookDto expected = createBookDto();
+        BookDto expected = TestUtil.createBookDto();
 
-        Category category = new Category();
-        category.setId(1L);
-        category.setName("Programming");
+        Category category = TestUtil.createCategory();
 
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
         when(categoryRepository.findAllById(requestDto.getCategoryIds()))
@@ -135,45 +128,6 @@ public class BookServiceTest {
         BookDto actual = bookService.update(bookId, requestDto);
 
         verify(bookMapper).updateBookFromDto(requestDto, book);
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getTitle(), actual.getTitle());
-    }
-
-
-    private CreateBookRequestDto createBookRequestDto() {
-        CreateBookRequestDto requestDto = new CreateBookRequestDto();
-        requestDto.setTitle("Java");
-        requestDto.setAuthor("Author");
-        requestDto.setIsbn("9781234567897");
-        requestDto.setPrice(BigDecimal.valueOf(50));
-        requestDto.setDescription("Java book");
-        requestDto.setCoverImage("img.jpg");
-        requestDto.setCategoryIds(Set.of(1L));
-        return requestDto;
-    }
-
-    private Book createBook() {
-        Book book = new Book();
-        book.setTitle("Java");
-        book.setAuthor("Author");
-        book.setIsbn("9781234567897");
-        book.setPrice(BigDecimal.valueOf(50));
-        book.setDescription("Java book");
-        book.setCoverImage("img.jpg");
-        book.setCategories(Set.of());
-        return book;
-    }
-
-    private BookDto createBookDto() {
-        BookDto bookDto = new BookDto();
-        bookDto.setId(1L);
-        bookDto.setTitle("Java");
-        bookDto.setAuthor("Author");
-        bookDto.setIsbn("9781234567897");
-        bookDto.setPrice(BigDecimal.valueOf(50));
-        bookDto.setDescription("Java book");
-        bookDto.setCoverImage("img.jpg");
-        bookDto.setCategoryIds(Set.of(1L));
-        return bookDto;
+        assertEquals(expected, actual);
     }
 }
