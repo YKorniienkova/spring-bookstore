@@ -1,7 +1,6 @@
 package mate.academy.springintro.dto.book;
 
 import java.math.BigDecimal;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
