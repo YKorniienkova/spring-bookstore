@@ -2,7 +2,12 @@ package mate.academy.springintro.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import mate.academy.springintro.dto.book.BookDto;
 import mate.academy.springintro.dto.book.CreateBookRequestDto;
 import mate.academy.springintro.util.TestUtil;
@@ -11,19 +16,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
 public class BookControllerTest {
+    private static final int EXPECTED_BOOKS_COUNT = 2;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -52,13 +57,9 @@ public class BookControllerTest {
 
         BookDto actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(), BookDto.class);
-        assertEquals(expected.getTitle(), actual.getTitle());
-        assertEquals(expected.getAuthor(), actual.getAuthor());
-        assertEquals(expected.getIsbn(), actual.getIsbn());
-        assertEquals(expected.getPrice(), actual.getPrice());
-        assertEquals(expected.getDescription(), actual.getDescription());
-        assertEquals(expected.getCoverImage(), actual.getCoverImage());
-        assertEquals(expected.getCategoryIds(), actual.getCategoryIds());
+
+        expected.setId(actual.getId());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -74,7 +75,8 @@ public class BookControllerTest {
         MvcResult result = mockMvc.perform(delete("/books/{id}", bookId))
                 .andReturn();
 
-        assertEquals(204, result.getResponse().getStatus());
+        int actual = result.getResponse().getStatus();
+        assertEquals(HttpStatus.NO_CONTENT.value(), actual);
     }
 
     @Test
@@ -103,5 +105,39 @@ public class BookControllerTest {
                 result.getResponse().getContentAsString(), BookDto.class);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("Find all books")
+    @Sql(scripts = "classpath:db/books/add-two-books.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:db/books/remove-book.sql",
+            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    void findAll_Success() throws Exception {
+        MvcResult result = mockMvc.perform(get("/books"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        JsonNode root = objectMapper.readTree(result.getResponse().getContentAsString());
+
+        int actual = root.get("content").size();
+        assertEquals(EXPECTED_BOOKS_COUNT, actual);
+
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("Create book with invalid request")
+    void createBook_InvalidRequestDto_ReturnsBadRequest() throws Exception {
+        CreateBookRequestDto requestDto = TestUtil.createBookRequestDto();
+        requestDto.setTitle("");
+
+        String jsonRequest = objectMapper.writeValueAsString(requestDto);
+
+        mockMvc.perform(post("/books")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }

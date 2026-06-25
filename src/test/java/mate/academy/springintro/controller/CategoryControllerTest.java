@@ -4,6 +4,7 @@ import static mate.academy.springintro.util.TestUtil.createCategoryDto;
 import static mate.academy.springintro.util.TestUtil.createCategoryRequestDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
 public class CategoryControllerTest {
+    private static final int EXPECTED_CATEGORIES_COUNT = 2;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -51,8 +54,8 @@ public class CategoryControllerTest {
         CategoryDto actual = objectMapper.readValue(
                 result.getResponse().getContentAsString(), CategoryDto.class);
 
-        assertEquals(expected.getName(), actual.getName());
-        assertEquals(expected.getDescription(), actual.getDescription());
+        expected.setId(actual.getId());
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -80,6 +83,7 @@ public class CategoryControllerTest {
 
         assertEquals(expected, actual);
     }
+
     @Test
     @DisplayName("Delete category")
     @WithMockUser(roles = "ADMIN")
@@ -95,4 +99,39 @@ public class CategoryControllerTest {
 
         assertEquals(204, result.getResponse().getStatus());
     }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    @DisplayName("Find all categories")
+    @Sql(scripts = "classpath:db/categories/add-two-categories.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:db/categories/remove-category.sql",
+            executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    void findAll_Success() throws Exception {
+        MvcResult result = mockMvc.perform(get("/categories"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        int actual = objectMapper.readTree(content).get("content").size();
+        assertEquals(EXPECTED_CATEGORIES_COUNT, actual);
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("Create a new category with invalid request")
+    void createCategory_WithInvalidRequestDto_ReturnsBadRequest() throws Exception {
+        CreateCategoryRequestDto requestDto = createCategoryRequestDto();
+        requestDto.setName("");
+
+        String jsonRequest = objectMapper.writeValueAsString(requestDto);
+
+        mockMvc.perform(post("/categories")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+
+    }
+
 }

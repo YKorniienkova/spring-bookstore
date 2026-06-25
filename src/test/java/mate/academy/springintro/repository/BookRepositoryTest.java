@@ -32,16 +32,18 @@ public class BookRepositoryTest {
         Category savedCategory = categoryRepository.save(category);
 
 
-        Book book = TestUtil.createBook();
-        book.setCategories(Set.of(savedCategory));
-        bookRepository.save(book);
+        Book expected = TestUtil.createBook();
+        expected.setCategories(Set.of(savedCategory));
+
+        Book savedBook = bookRepository.save(expected);
 
         Page<Book> result = bookRepository.findAllByCategoriesId(
-                category.getId(),
+                savedCategory.getId(),
                 PageRequest.of(0,10)
         );
 
-        assertEquals(1, result.getTotalElements());
-        assertEquals("Java book", result.getContent().get(0).getDescription());
+        Book actual = result.getContent().get(0);
+
+        assertEquals(expected, actual);
     }
 }
