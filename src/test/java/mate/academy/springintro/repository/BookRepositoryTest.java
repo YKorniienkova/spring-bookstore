@@ -1,6 +1,7 @@
 package mate.academy.springintro.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import mate.academy.springintro.model.Book;
 import mate.academy.springintro.model.Category;
@@ -45,5 +46,16 @@ public class BookRepositoryTest {
         Book actual = result.getContent().get(0);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Find books by invalid category id")
+    void findAllByCategoriesId_InvalidCategoryId_ReturnsEmptyPage() {
+        Page<Book> result = bookRepository.findAllByCategoriesId(
+                999L,
+                PageRequest.of(0, 10)
+        );
+
+        assertTrue(result.isEmpty());
     }
 }

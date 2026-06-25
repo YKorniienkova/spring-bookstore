@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
@@ -97,7 +98,7 @@ public class CategoryControllerTest {
         MvcResult result = mockMvc.perform(delete("/categories/{id}", categoryId))
                 .andReturn();
 
-        assertEquals(204, result.getResponse().getStatus());
+        assertEquals(HttpStatus.NO_CONTENT.value(), result.getResponse().getStatus());
     }
 
     @Test
@@ -134,4 +135,13 @@ public class CategoryControllerTest {
 
     }
 
+    @Test
+    @WithMockUser(roles = "USER")
+    @DisplayName("Get category by invalid id")
+    @Sql(scripts = "classpath:db/categories/remove-category.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void getCategoryById_InvalidId_ReturnsNotFound() throws Exception {
+        mockMvc.perform(get("/categories/{id}", 999L))
+                .andExpect(status().isNotFound());
+    }
 }

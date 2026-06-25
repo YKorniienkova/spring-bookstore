@@ -47,7 +47,6 @@ public class CategoryServiceTest {
 
         categoryService.deleteById(categoryId);
         verify(categoryRepository).deleteById(categoryId);
-
     }
 
     @Test

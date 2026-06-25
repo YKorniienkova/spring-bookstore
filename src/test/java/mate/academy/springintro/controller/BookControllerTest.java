@@ -140,4 +140,14 @@ public class BookControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("Get book by invalid id")
+    @Sql(scripts = "classpath:db/books/remove-book.sql",
+            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void getBookById_InvalidId_ReturnsNotFound() throws Exception {
+        mockMvc.perform(get("/books/{id}", 999L))
+                .andExpect(status().isNotFound());
+    }
 }
