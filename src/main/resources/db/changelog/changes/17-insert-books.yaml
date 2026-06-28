@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-books
+      author: YKorniienkova
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: Harry Potter and the Philosopher's Stone
+              - column:
+                  name: author
+                  value: J. K. Rowling
+              - column:
+                  name: isbn
+                  value: "9780747532743"
+              - column:
+                  name: price
+                  valueNumeric: 19.99
+              - column:
+                  name: description
+                  value: The first book in the Harry Potter series.
+              - column:
+                  name: cover_image
+                  value: https://images.example.com/harry-potter-1.jpg
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: The Joy of Cooking
+              - column:
+                  name: author
+                  value: Irma S. Rombauer
+              - column:
+                  name: isbn
+                  value: "9781501169717"
+              - column:
+                  name: price
+                  valueNumeric: 29.99
+              - column:
+                  name: description
+                  value: A classic cookbook with recipes for everyday cooking.
+              - column:
+                  name: cover_image
+                  value: https://images.example.com/joy-of-cooking.jpg
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: Pride and Prejudice
+              - column:
+                  name: author
+                  value: Jane Austen
+              - column:
+                  name: isbn
+                  value: "9780141439518"
+              - column:
+                  name: price
+                  valueNumeric: 14.99
+              - column:
+                  name: description
+                  value: A classic novel about love, family, and society.
+              - column:
+                  name: cover_image
+                  value: https://images.example.com/pride-and-prejudice.jpg
+              - column:
+                  name: is_deleted
+                  valueBoolean: false

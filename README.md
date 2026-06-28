@@ -44,7 +44,7 @@ A RESTful API for an online bookstore built with Spring Boot. Users can register
 ## API Endpoints
 
 ### AuthenticationController
-- `POST /api/auth/registration` - Register a new user
+- `POST /api/auth/regiser` - Register a new user
 - `POST /api/auth/login` -  Authenticate user and get JWT token
 
 ### BookController
@@ -138,13 +138,12 @@ mvn test
 
 #### Register a new User
 
-**POST** `/api/auth/registration`
+**POST** `/api/auth/register`
 
 ```json
 {
   "email": "user@example.com",
   "password": "password123",
-  "repeatPassword": "password123",
   "firstName": "firstName",
   "lastName": "lastName",
   "shippingAddress": "New York"

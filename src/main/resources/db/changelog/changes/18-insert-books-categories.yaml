@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-books-categories
+      author: YKorniienkova
+      changes:
+        - insert:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (SELECT id FROM books WHERE isbn='9780747532743')
+              - column:
+                  name: category_id
+                  valueComputed: (SELECT id FROM categories WHERE name='Fantasy')
+
+        - insert:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (SELECT id FROM books WHERE isbn='9781501169717')
+              - column:
+                  name: category_id
+                  valueComputed: (SELECT id FROM categories WHERE name='Cooking')
+
+        - insert:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (SELECT id FROM books WHERE isbn='9780141439518')
+              - column:
+                  name: category_id
+                  valueComputed: (SELECT id FROM categories WHERE name='Classics')
