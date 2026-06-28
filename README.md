@@ -103,19 +103,7 @@ mvn spring-boot:run
 
 ### 🐳 Running with Docker
 #### 1. Create a `.env` file in the project root:  
-``` env
-MYSQLDB_DATABASE=bookstore
-MYSQLDB_ROOT_PASSWORD=root
-
-MYSQLDB_LOCAL_PORT=3307
-MYSQLDB_DOCKER_PORT=3306
-
-SPRING_LOCAL_PORT=8087
-SPRING_DOCKER_PORT=8080
-
-JWT_SECRET=your_secret
-JWT_EXPIRATION=300000
-```
+Copy the provided `.env.example` file and rename it to `.env`.
 
 #### 2. Start the application
 ```bash
