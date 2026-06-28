@@ -72,7 +72,7 @@ public class BookController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @Operation(summary = "Search books by parameters",
             description = "Search books by title, author")
-    public Page<BookDto> searchBooks(BookSearchParameterDto searchParametrs, Pageable pageable) {
-        return bookService.search(searchParametrs, pageable);
+    public Page<BookDto> searchBooks(BookSearchParameterDto searchParameters, Pageable pageable) {
+        return bookService.search(searchParameters, pageable);
     }
 }
