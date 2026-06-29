@@ -26,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
+@Sql(scripts = "classpath:db/books/remove-book.sql",
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 public class BookControllerTest {
     private static final int EXPECTED_BOOKS_COUNT = 2;
 

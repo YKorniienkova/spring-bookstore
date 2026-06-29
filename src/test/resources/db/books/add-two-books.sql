@@ -1,7 +1,3 @@
-DELETE FROM books_categories;
-DELETE FROM books;
-DELETE FROM categories;
-
 INSERT INTO books (id, title, author, isbn, price, description, cover_image, is_deleted)
 VALUES
 (1, 'Java', 'Author', '9781234567897', 50.00, 'Java book', 'img.jpg', 0),

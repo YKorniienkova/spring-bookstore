@@ -26,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
+@Sql(scripts = "classpath:db/categories/remove-category.sql",
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 public class CategoryControllerTest {
     private static final int EXPECTED_CATEGORIES_COUNT = 2;
 
