@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-default-categories
+      author: YKorniienkova
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: Fantasy
+              - column:
+                  name: description
+                  value: Fantasy books and magical stories.
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: Cooking
+              - column:
+                  name: description
+                  value: Cookbooks and recipes.
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: Classics
+              - column:
+                  name: description
+                  value: Classic literature.
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
