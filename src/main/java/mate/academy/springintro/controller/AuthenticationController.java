@@ -24,7 +24,7 @@ public class AuthenticationController {
     private final UserService userService;
 
     @Operation(summary = "Register user", description = "Register a new user")
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public UserResponseDto register(@RequestBody @Valid
                                     UserRegistrationRequestDto requestDto) {
         return userService.register(requestDto);
